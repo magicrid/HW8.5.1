@@ -15,32 +15,28 @@ public:
 
     explicit StopWatch(QObject *parent = nullptr);
 
-    ~StopWatch();
+    ~StopWatch() override;;
 
     void updateTime();
     void startTimer();
     void stopTimer();
-    QString& getCurrentTime();
+    QString& getCurrentTime() const;
     QString& getCircleTime();
 
-public slots:
-
-    void circleTime();
-    void clearTime();
-
-
 signals:
+    void sig_updateTime(const QString& timeStr);
 
-    void sig_updateTime(QString &strCurrentTime);
+private slots:
+    void updateTime();
 
 private:
-    QTimer *timer;
+    QTimer* timer = nullptr;
     QTime time;
     QTime stopTime;
+    int circleTiming = 0;
+    int count = 1;
     QString strCurrentTime;
     QString strCircleTime;
-    int circleTiming;
-    int count;
 };
 
 #endif // STOPWATCH_H

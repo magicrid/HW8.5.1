@@ -14,7 +14,6 @@ StopWatch::StopWatch(QObject *parent) : QObject{parent}
 
 StopWatch::~StopWatch()
 {
-    delete timer;
 }
 
 void StopWatch::updateTime()
@@ -35,12 +34,8 @@ void StopWatch::stopTimer()
     timer->stop();
 }
 
-QString &StopWatch::getCurrentTime()
-{
-    return strCurrentTime;
-}
 
-QString &StopWatch::getCircleTime()
+QString &StopWatch::getCircleTime() const
 {
     return strCircleTime;
 }
@@ -51,6 +46,7 @@ void StopWatch::circleTime()
     strCircleTime = "Круг " + QString::number(count) + " , время: " + QString::number(circleTiming) + " сек";
     stopTime = time;
     count++;
+    return strCircleTime;
 }
 
 void StopWatch::clearTime()
@@ -58,4 +54,6 @@ void StopWatch::clearTime()
     count = 1;
     time.setHMS(0, 0, 0, 0);
     stopTime.setHMS(0, 0, 0, 0);
+    strCurrentTime.clear();
+    strCircleTime.clear();
 }
